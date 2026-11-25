@@ -1,8 +1,5 @@
 import sqlite3
-from functools import wraps
-from flask import  Blueprint, Flask, flash, redirect, render_template, request, session
-from flask_session import Session
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import  Blueprint, flash, redirect, render_template, request, session
 from helper import login_required, role_required, db, generate_share_code
 
 
@@ -141,7 +138,11 @@ def complete_profile():
 @login_required
 @role_required("patient")
 def change_info():
-    patient = db.execute("SELECT * FROM patients WHERE user_id = ?", session["user_id"])
+    patient = db.execute(
+        "SELECT * FROM patients WHERE user_id = ?",
+        session["user_id"]
+    )
+
     if not patient:
         flash("Patient not found", "danger")
         return redirect("/patient")
@@ -149,27 +150,35 @@ def change_info():
     patient = patient[0]
 
     if request.method == "POST":
-        editable_fields = ("name", "age", "gender", "chronic_illnesses", "habits", "medical_history")
+        editable_fields = (
+            "name", "age", "gender",
+            "chronic_illnesses", "habits", "medical_history"
+        )
+
         updates = []
         values = []
+
         for field in editable_fields:
             value = request.form.get(field)
+
             if value is not None and value.strip():
-                    updates.append(f"{field} = ?")
-                    values.append(value.strip())                
-        
-            if not updates:
-                flash("Please enter at least one field to edit", "warning")
-                return render_template("change_info.html", patient=patient[0])
+                updates.append(f"{field} = ?")
+                values.append(value.strip())
+
+        if not updates:
+            flash("Please enter at least one field to edit", "warning")
+            return render_template("change_info.html", patient=patient)
+
         try:
             db.execute(
                 f"UPDATE patients SET {', '.join(updates)} WHERE id = ?",
-                *(values + [session["user_id"]])
-         )
+                *(values + [patient["id"]])
+            )
+
         except sqlite3.Error:
             flash("Error updating profile", "danger")
             return render_template("change_info.html", patient=patient)
-        
+
         flash("Profile updated successfully", "success")
         return redirect("/patient")
 
