@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}Complete profile{% endblock %}
+
+{% block main %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            {% if mode == 'code' %}
+                <div class="card p-4 text-start">
+                    <h2 class="mb-2">Enter your code</h2>
+                    <p class="text-muted mb-3">The code your doctor gave you.</p>
+                    <form action="{{ url_for('patient.complete_profile', mode='code') }}" method="post">
+                        <input class="form-control mb-3" name="claim_code" placeholder="Code"
+                               autocomplete="off" autofocus required>
+                        <button class="btn btn-primary w-100" type="submit">Link my record</button>
+                    </form>
+                    <a href="{{ url_for('patient.complete_profile') }}" class="btn btn-link mt-2">Back</a>
+                </div>
+
+            {% elif mode == "new" %}
+                <div class="card p-4 text-start">
+                    <h2 class="mb-3">Complete your profile</h2>
+                    <form action="{{ url_for('patient.complete_profile', mode='new') }}" method="post">
+                        <input class="form-control mb-3" name="name" placeholder="Full name"
+                               autocomplete="off" autofocus>
+                        <input class="form-control mb-3" name="age" type="number"
+                               min="0" max="120" placeholder="Age">
+                        <select class="form-select mb-3" name="gender">
+                            <option value="" disabled selected>Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <textarea class="form-control mb-3" name="chronic_illnesses" rows="2"
+                                  placeholder="Chronic illnesses (optional)"></textarea>
+                        <textarea class="form-control mb-3" name="habits" rows="2"
+                                  placeholder="Habits (optional)"></textarea>
+                        <textarea class="form-control mb-3" name="medical_history" rows="3"
+                                  placeholder="Medical history (optional)"></textarea>
+                        <button class="btn btn-primary w-100" type="submit">Save</button>
+                    </form>
+                    <a href="{{ url_for('patient.complete_profile') }}" class="btn btn-link mt-2">Back</a>
+                </div>
+
+            {% else %}
+                <div class="card p-4">
+                    <h2 class="mb-4">Did your doctor already give you a code?</h2>
+                    <a href="{{ url_for('patient.complete_profile', mode='code') }}">Yes, I have a code</a>
+                    <a href="{{ url_for('patient.complete_profile', mode='new') }}">No, I'm new</a>
+                    <a href="{{ url_for('patient.complete_profile') }}">Back</a>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

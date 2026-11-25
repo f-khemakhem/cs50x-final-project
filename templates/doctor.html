@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Doctor Dashboard
+{% endblock %}
+
+{% block main %}
+    <h1>Doctor Dashboard</h1>
+    <div class="mb-3">
+        <a href="{{ url_for('doctor.add_patient') }}" class="btn btn-primary btn-lg mb-3">Add Patient</a>
+        <a href="{{ url_for('doctor.view_patients') }}" class="btn btn-primary btn-lg mb-3">View Patients</a>
+        <a href="{{ url_for('doctor.agenda') }}" class="btn btn-primary btn-lg mb-3">Agenda</a>
+        <a href="{{ url_for('doctor.my_notes') }}" class="btn btn-primary btn-lg mb-3">My notes</a>
+        <a href="{{ url_for('doctor.enter_code') }}" class="btn btn-primary btn-lg mb-3">Enter patient code</a>
+    </div>
+{% endblock %}

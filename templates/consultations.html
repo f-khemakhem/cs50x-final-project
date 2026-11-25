@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Consultations{% endblock %}
+
+{% block main %}
+    <h1 class="mb-1">Consultations</h1>
+    <p class="text-muted mb-4">Patient: {{ patient.name }}</p>
+
+    <a href="{{ url_for('doctor.add_consultation', patient_id=patient.id) }}" class="btn btn-success mb-3">Add consultation</a>
+
+    {% for c in history %}
+        <div class="card mb-3">
+            <div class="card-header">
+                {{ c.consultation_date }} 
+            </div>
+            <div class="card-body">
+                {% if c.notes %}<p><strong>Notes:</strong> {{ c.notes }}</p>{% endif %}
+                {% if c.diagnosis %}<p><strong>Diagnosis:</strong> {{ c.diagnosis }}</p>{% endif %}
+                {% if c.analyses %}<p class="mb-0"><strong>Analyses:</strong> {{ c.analyses }}</p>{% endif %}
+            </div>
+        </div>
+    {% else %}
+        <p class="text-muted">No consultations yet.</p>
+    {% endfor %}
+
+    <a href="{{ url_for('doctor.patient_info', patient_id=patient.id) }}" class="btn btn-outline-secondary">Back</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+        Add Prescription
+{% endblock %}
+
+{% block main %}
+    <h1>Add Prescription</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="prescription_date">Prescription Date</label>
+            <input type="date" class="form-control" id="prescription_date" name="prescription_date" required>
+        </div>
+        <div class="form-group">
+            <label for="medication">Medication</label>
+            <input type="text" class="form-control" id="medication" name="medication" required>
+        </div>
+        <div class="form-group">
+            <label for="dosage">Dosage</label>
+            <input type="text" class="form-control" id="dosage" name="dosage" required>
+        </div>
+        <div class="form-group">
+            <label for="instructions">Instructions</label>
+            <textarea class="form-control" id="instructions" name="instructions" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Prescription</button>
+    </form>
+    <a href="{{ url_for('doctor.prescriptions', patient_id=patient_id) }}" class="btn btn-secondary mb-3">Back to Prescriptions</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}My notes{% endblock %}
+
+{% block main %}
+    <h1 class="mb-4">My notes</h1>
+
+    <form action="/my_notes" method="post" class="mb-4">
+        <textarea name="content" class="form-control mb-2" rows="3"
+                  placeholder="Write a note"></textarea>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <ul class="list-group">
+        {% for note in notes %}
+            <li class="list-group-item">
+                {{ note.content }}
+                <br>
+                <small class="text-muted">{{ note.created_at }}</small>
+                <form action="{{ url_for('doctor.delete_note', note_id=note.id) }}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger float-end">Delete</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="list-group-item text-muted">No notes yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('doctor.doctor') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+{% endblock %}

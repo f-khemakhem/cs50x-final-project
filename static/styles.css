@@ -1,0 +1,36 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #0f7996;
+    --bs-btn-border-color: #000000;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0a0f4be3;
+    --bs-btn-hover-border-color: #000000;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4c2e85;
+    --bs-btn-active-border-color: #000000;
+}

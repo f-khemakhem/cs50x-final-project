@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Prescriptions
+{% endblock %}
+
+{% block main %}
+    <a href="{{ url_for('doctor.doctor') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+    <a href="{{ url_for('doctor.patient_info', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Back</a>
+    <a href="{{ url_for('doctor.edit_patient', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Edit Patient</a>
+    <a href="{{ url_for('doctor.other_doctors', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Other Doctors</a>
+    <h1>Prescriptions</h1>
+    <ul>
+        {% for prescription in prescriptions %}
+            <li>
+                <strong>Medication:</strong> {{ prescription.medication }}<br>
+                <strong>Dosage:</strong> {{ prescription.dosage }}<br>
+                <strong>Instructions:</strong> {{ prescription.instructions }}<br>
+                <strong>Date:</strong> {{ prescription.prescription_date }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/add_prescription/{{ patient.id }}" class="btn btn-success">Add prescription</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Patient Information
+{% endblock %}
+
+{% block main %}
+    <a href="{{ url_for('doctor.doctor') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+    <a href="{{ url_for('doctor.edit_patient', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Edit Patient</a>
+    <a href="{{ url_for('doctor.consultations', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Consultations</a>
+    <a href="{{ url_for('doctor.other_doctors', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Other Doctors</a>
+    <a href="{{ url_for('doctor.prescriptions', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Prescriptions</a>
+    <h1>Patient Information</h1>
+    <p><strong>Name:</strong> {{ patient.name }}</p>
+    <p><strong>Age:</strong> {{ patient.age }}</p>
+    <p><strong>Gender:</strong> {{ patient.gender }}</p>
+    <p><strong>Chronic Illnesses:</strong> {{ patient.chronic_illnesses }}</p>
+    <p><strong>Habits:</strong> {{ patient.habits }}</p>
+    <p><strong>Medical History:</strong> {{ patient.medical_history }}</p>
+    <p><strong>Share code:</strong> <code class="fs-5">{{ patient.share_code }}</code><br>
+    <small class="text-muted">Give this code to another doctor to link them to this patient.</small></p>
+{% endblock %}

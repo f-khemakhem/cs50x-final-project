@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    ADD Consultation
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="mb-1">Add consultation</h1>
+    <p class="text-muted mb-4">Patient: {{ patient.name }}</p>
+
+    <a href="{{ url_for('doctor.doctor') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+    <a href="{{ url_for('doctor.patient_info', patient_id=patient.id) }}" class="btn btn-secondary mb-3">Back</a>
+    
+    <form action="{{ url_for('doctor.add_consultation', patient_id=patient.id) }}" method="post" class="text-start">
+        <textarea name="diagnosis" class="form-control mb-3" rows="2" placeholder="Diagnosis"></textarea>
+        <textarea name="analyses" class="form-control mb-3" rows="2" placeholder="Analyses"></textarea>
+        <textarea name="consultation_notes" class="form-control mb-3" rows="2" placeholder="Consultation Notes"></textarea>
+        <button type="submit" class="btn btn-primary">Add consultation</button>
+    </form>
+{% endblock %}

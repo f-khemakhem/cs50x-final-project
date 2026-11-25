@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+        Edit informations
+{% endblock %}
+
+{% block main %}
+    <h1>Edit Information</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" optinal value="{{ patient.name }}">
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age" optinal value="{{ patient.age }}">
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" name="gender" optinal value="{{ patient.gender }}">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chronic_illnesses">Chronic Illnesses</label>
+            <textarea class="form-control" id="chronic_illnesses" name="chronic_illnesses" >{{ patient.chronic_illnesses }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="habits">Habits</label>
+            <textarea class="form-control" id="habits" name="habits">{{ patient.habits }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="medical_history">Medical History</label>
+            <textarea class="form-control" id="medical_history" name="medical_history">{{ patient.medical_history }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    <a href="{{ url_for('patient.patient') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+{% endblock %}
