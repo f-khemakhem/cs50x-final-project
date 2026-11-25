@@ -1,11 +1,12 @@
 import sqlite3
-from flask import Blueprint, Blueprint, flash, redirect, render_template, request, session
+from flask import Blueprint, flash, redirect, render_template, request, session
 from helper import login_required, role_required, doctor_can_access , db, generate_share_code
 
 doctor_bp = Blueprint("doctor", __name__)
 
 @doctor_bp.route("/doctor")
 @login_required
+@role_required("doctor")
 def doctor():
     return render_template("doctor.html")
 
@@ -261,13 +262,14 @@ def my_notes():
             "INSERT INTO private_notes (doctor_id, content) VALUES (?, ?)",
             session["user_id"], content.strip(),
         )
+        flash("Note added successfully", "success")
         return redirect("/my_notes")
 
     notes = db.execute(
         "SELECT * FROM private_notes WHERE doctor_id = ? ORDER BY created_at DESC",
         session["user_id"],
     )
-    flash("Note added successfully", "success")
+    
     return render_template("my_notes.html", notes=notes)
 
 @doctor_bp.route("/delete_note/<int:note_id>", methods=["POST"])
@@ -344,9 +346,10 @@ def other_doctors(patient_id):
                     "INSERT INTO messages (patient_id, doctor_id, content) VALUES (?, ?, ?)",
                     patient_id, session["user_id"], content.strip(),
                 )
+                flash("Note added successfully", "success")
             except sqlite3.Error:
                 flash("Error saving note", "danger")
-        flash("Note added successfully", "success")
+        
         return redirect(f"/other_doctors/{patient_id}")
 
     messages = db.execute(
