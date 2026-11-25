@@ -1,9 +1,7 @@
 import sqlite3
 
-from functools import wraps
 from helper import db 
-from flask import Blueprint, Flask, flash, redirect, render_template, request, session
-from flask_session import Session
+from flask import Blueprint, flash, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 auth_bp = Blueprint("auth", __name__)
