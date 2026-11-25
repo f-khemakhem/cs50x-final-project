@@ -1,8 +1,5 @@
 import sqlite3
-from functools import wraps
-from flask import Blueprint, Blueprint, Flask, flash, redirect, render_template, request, session
-from flask_session import Session
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import Blueprint, Blueprint, flash, redirect, render_template, request, session
 from helper import login_required, role_required, doctor_can_access , db, generate_share_code
 
 doctor_bp = Blueprint("doctor", __name__)
